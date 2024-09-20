@@ -9,7 +9,7 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("", {
+        axios.post("http://localhost:3001/register", {
             username: username,
             email: email,
             password: password

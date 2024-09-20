@@ -14,8 +14,8 @@ mongoose
 
 app.post("/register", (req, res) => {
     EmployeeModel.create(req.body)
-    .then((data) => res.send(data))
-    .catch((err) => res.send(err));
+    .then((data) => res.json(data))
+    .catch((err) => res.json(err));
 })
 
 app.listen(3001, () => {
