@@ -1,6 +1,23 @@
-// import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post("", {
+            username: username,
+            email: email,
+            password: password
+        })
+        .then((res) => {console.log(res.data);})
+        .catch((err) => {console.log(err);})
+    }
+
     // Inline styles
     const formStyles = {
       width: "300px",
@@ -62,7 +79,7 @@ const Signup = () => {
     return (
       <div style={formStyles}>
         <h2>Signup</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" style={labelStyles}>
               Name:
@@ -73,6 +90,7 @@ const Signup = () => {
               name="name"
               required
               style={inputStyles}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
   
@@ -86,6 +104,7 @@ const Signup = () => {
               name="email"
               required
               style={inputStyles}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
   
@@ -99,6 +118,7 @@ const Signup = () => {
               name="password"
               required
               style={inputStyles}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
   
@@ -111,20 +131,26 @@ const Signup = () => {
             >
               Register
             </button>
-  
-            <button
-              type="button"
-              style={{ ...buttonStyles, ...loginButtonStyles }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = loginHoverStyles.backgroundColor)}
-              onMouseOut={(e) => (e.target.style.backgroundColor = loginButtonStyles.backgroundColor)}
-            >
-              Login
-            </button>
+
+            
+
+            
+
           </div>
         </form>
+        <Link to="/login">
+            <button
+            type="button"
+            style={{ ...buttonStyles, ...loginButtonStyles }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = loginHoverStyles.backgroundColor)}
+            onMouseOut={(e) => (e.target.style.backgroundColor = loginButtonStyles.backgroundColor)}
+            >
+                Login
+            </button>
+            </Link>
       </div>
     );
-  };
+};
   
   export default Signup;
   
