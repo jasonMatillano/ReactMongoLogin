@@ -1,6 +1,6 @@
 // import React, { useState } from "react";
 
-const Signup = () => {
+const Login = () => {
     // Inline styles
     const formStyles = {
       width: "300px",
@@ -51,30 +51,14 @@ const Signup = () => {
       backgroundColor: "#2196F3", // Blue for Login button
     };
   
-    const buttonHoverStyles = {
-      backgroundColor: "#45a049", // Hover for Register button
-    };
-  
     const loginHoverStyles = {
       backgroundColor: "#1E88E5", // Hover for Login button
     };
   
     return (
       <div style={formStyles}>
-        <h2>Signup</h2>
+        <h2>Login</h2>
         <form>
-          <div>
-            <label htmlFor="name" style={labelStyles}>
-              Name:
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              style={inputStyles}
-            />
-          </div>
   
           <div>
             <label htmlFor="email" style={labelStyles}>
@@ -103,14 +87,6 @@ const Signup = () => {
           </div>
   
           <div style={buttonContainerStyles}>
-            <button
-              type="submit"
-              style={buttonStyles}
-              onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyles.backgroundColor)}
-              onMouseOut={(e) => (e.target.style.backgroundColor = buttonStyles.backgroundColor)}
-            >
-              Register
-            </button>
   
             <button
               type="button"
@@ -126,5 +102,5 @@ const Signup = () => {
     );
   };
   
-  export default Signup;
+  export default Login;
   
