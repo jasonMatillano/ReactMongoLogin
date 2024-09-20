@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:3001/register", {
@@ -14,7 +17,10 @@ const Signup = () => {
             email: email,
             password: password
         })
-        .then((res) => {console.log(res.data);})
+        .then((res) => {
+          console.log(res.data);
+          navigate("/login")
+        })
         .catch((err) => {console.log(err);})
     }
 
@@ -131,11 +137,6 @@ const Signup = () => {
             >
               Register
             </button>
-
-            
-
-            
-
           </div>
         </form>
         <Link to="/login">
@@ -147,7 +148,7 @@ const Signup = () => {
             >
                 Login
             </button>
-            </Link>
+          </Link>
       </div>
     );
 };
