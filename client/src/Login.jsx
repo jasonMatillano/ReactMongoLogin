@@ -16,7 +16,7 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res.data);
-        navigate("/login")
+        navigate("/home")
       })
       .catch((err) => {console.log(err);})
   }
