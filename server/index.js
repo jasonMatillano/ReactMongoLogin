@@ -34,8 +34,17 @@ app.post("/login", (req, res) => {
 })
 
 app.post("/register", (req, res) => {
-    EmployeeModel.create(req.body)
-    .then((data) => res.json(data))
+    const { email, password } = req.body;
+    EmployeeModel.findOne({ email: email })
+    .then((data) => {
+        if(data) {
+            res.json("User already exists");
+        } else {
+            EmployeeModel.create(req.body)
+            .then((data) => res.json(data))
+            .catch((err) => res.json(err));
+        }
+    })
     .catch((err) => res.json(err));
 })
 

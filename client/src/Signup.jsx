@@ -9,7 +9,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:3001/register", {
@@ -19,7 +19,11 @@ const Signup = () => {
         })
         .then((res) => {
           console.log(res.data);
-          navigate("/login")
+          if (res.data === "User already exists") {
+            alert("User already exists");
+          } else {
+            navigate("/login")
+          }
         })
         .catch((err) => {console.log(err);})
     }
