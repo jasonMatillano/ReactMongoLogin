@@ -43,6 +43,7 @@ const Signup = () => {
   const buttonStyles = {
     width: "100%",
     padding: "10px",
+    marginTop: "10px",
     fontSize: "16px",
     backgroundColor: "#4CAF50",
     color: "white",
@@ -143,18 +144,20 @@ const Signup = () => {
             >
               Register
             </button>
+            
+
           </div>
         </form>
         <Link to="/login">
-            <button
-            type="button"
-            style={{ ...buttonStyles, ...loginButtonStyles }}
-            onMouseOver={(e) => (e.target.style.backgroundColor = loginHoverStyles.backgroundColor)}
-            onMouseOut={(e) => (e.target.style.backgroundColor = loginButtonStyles.backgroundColor)}
-            >
-                Login
+          <button
+              type="button"
+              style={{ ...buttonStyles, ...loginButtonStyles }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = loginHoverStyles.backgroundColor)}
+              onMouseOut={(e) => (e.target.style.backgroundColor = loginButtonStyles.backgroundColor)}
+              >
+              Login
             </button>
-          </Link>
+          </Link>   
       </div>
     );
 };
