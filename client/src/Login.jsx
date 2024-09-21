@@ -21,6 +21,7 @@ const Login = () => {
         } else if (res.data === "Wrong password") {
           alert("Wrong password");
         } else {
+          alert("Login successful");
           navigate("/home")
         }
 
