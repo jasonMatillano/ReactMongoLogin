@@ -12,6 +12,27 @@ mongoose
 .then(() => console.log("Connected to MongoDB"))
 .catch((err) => console.log(err));
 
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    EmployeeModel.findOne({ email: email })
+    .then((data) => 
+    {
+        if(data) {
+            if(data.password === password)
+            {
+                res.json("Login successful");
+            }
+            else
+            {
+                res.json("Wrong password");
+            }
+        } else {
+            res.json("User not found");
+        }
+    })
+    .catch((err) => res.json(err));
+})
+
 app.post("/register", (req, res) => {
     EmployeeModel.create(req.body)
     .then((data) => res.json(data))

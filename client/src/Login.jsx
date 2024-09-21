@@ -1,6 +1,25 @@
-// import React, { useState } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      axios.post("http://localhost:3001/login", {
+          email: email,
+          password: password
+      })
+      .then((res) => {
+        console.log(res.data);
+        navigate("/login")
+      })
+      .catch((err) => {console.log(err);})
+  }
     // Inline styles
     const formStyles = {
       width: "300px",
@@ -58,7 +77,7 @@ const Login = () => {
     return (
       <div style={formStyles}>
         <h2>Login</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
   
           <div>
             <label htmlFor="email" style={labelStyles}>
@@ -70,6 +89,7 @@ const Login = () => {
               name="email"
               required
               style={inputStyles}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
   
@@ -83,13 +103,14 @@ const Login = () => {
               name="password"
               required
               style={inputStyles}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
   
           <div style={buttonContainerStyles}>
   
             <button
-              type="button"
+              type="submit"
               style={{ ...buttonStyles, ...loginButtonStyles }}
               onMouseOver={(e) => (e.target.style.backgroundColor = loginHoverStyles.backgroundColor)}
               onMouseOut={(e) => (e.target.style.backgroundColor = loginButtonStyles.backgroundColor)}
