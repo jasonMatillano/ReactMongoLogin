@@ -34,7 +34,7 @@ app.post("/login", (req, res) => {
 })
 
 app.post("/register", (req, res) => {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
     EmployeeModel.findOne({ email: email })
     .then((data) => {
         if(data) {
