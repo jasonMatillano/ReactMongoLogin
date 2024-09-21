@@ -16,7 +16,14 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res.data);
-        navigate("/home")
+        if (res.data === "User not found") {
+          alert("User not found");
+        } else if (res.data === "Wrong password") {
+          alert("Wrong password");
+        } else {
+          navigate("/home")
+        }
+
       })
       .catch((err) => {console.log(err);})
   }
