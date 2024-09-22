@@ -19,14 +19,15 @@ app.post("/login", (req, res) => {
     .then((data) => 
     {
         if(data) {
-            if(data.password === password)
-            {
-                res.json("Login successful");
-            }
-            else
-            {
-                res.json("Wrong password");
-            }
+            bycrypt.compare(password, data.password, (err, result) => {
+                if(err) {
+                    res.json(err);
+                } else if(result) {
+                    res.json("Login successful");
+                } else {
+                    res.json("Wrong password");
+                }
+            })
         } else {
             res.json("User not found");
         }
@@ -36,26 +37,21 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { username, email, password } = req.body;
-    bycrypt.hash(password, 10)
-    .then((hashedPassword) => {
-        EmployeeModel.create({username, email, password  : hashedPassword })
-        .then((data) => res.json(data))
-        .catch((err) => res.json(err));
+    EmployeeModel.findOne({ email: email })
+    .then((data) => {
+        if(data) {
+            res.json("User already exists");
+        } else {
+            bycrypt.hash(password, 10)
+            .then((hashedPassword) => {
+                EmployeeModel.create({username, email, password  : hashedPassword })
+                .then((data) => res.json(data))
+                .catch((err) => res.json(err));
+            })
+            .catch((err) => res.json(err));
+        }
     })
     .catch((err) => res.json(err));
-
-
-    // EmployeeModel.findOne({ email: email })
-    // .then((data) => {
-    //     if(data) {
-    //         res.json("User already exists");
-    //     } else {
-    //         EmployeeModel.create(req.body)
-    //         .then((data) => res.json(data))
-    //         .catch((err) => res.json(err));
-    //     }
-    // })
-    // .catch((err) => res.json(err));
 })
 
 app.listen(3001, () => {
