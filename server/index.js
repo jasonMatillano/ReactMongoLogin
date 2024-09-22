@@ -23,6 +23,7 @@ app.post("/login", (req, res) => {
                 if(err) {
                     res.json(err);
                 } else if(result) {
+                    // res.json(result);
                     res.json("Login successful");
                 } else {
                     res.json("Wrong password");
