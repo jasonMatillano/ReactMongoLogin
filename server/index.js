@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const EmployeeModel = require("./models/Employee");
+const bycrypt = require("bcrypt");
 
 const app = express();
 app.use(express.json());
@@ -35,17 +36,26 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { username, email, password } = req.body;
-    EmployeeModel.findOne({ email: email })
-    .then((data) => {
-        if(data) {
-            res.json("User already exists");
-        } else {
-            EmployeeModel.create(req.body)
-            .then((data) => res.json(data))
-            .catch((err) => res.json(err));
-        }
+    bycrypt.hash(password, 10)
+    .then((hashedPassword) => {
+        EmployeeModel.create({username, email, password  : hashedPassword })
+        .then((data) => res.json(data))
+        .catch((err) => res.json(err));
     })
     .catch((err) => res.json(err));
+
+
+    // EmployeeModel.findOne({ email: email })
+    // .then((data) => {
+    //     if(data) {
+    //         res.json("User already exists");
+    //     } else {
+    //         EmployeeModel.create(req.body)
+    //         .then((data) => res.json(data))
+    //         .catch((err) => res.json(err));
+    //     }
+    // })
+    // .catch((err) => res.json(err));
 })
 
 app.listen(3001, () => {
